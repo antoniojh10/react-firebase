@@ -12,9 +12,4 @@ import 'bootswatch/dist/litera/bootstrap.min.css';
 // Components
 import App from './components/App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('app'),
-);
+ReactDOM.render(<App />, document.getElementById('app'));

@@ -1,5 +1,10 @@
 import React from 'react';
 
+// Modules
+// --- React Toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Components
 import LinksList from './LinksList';
 
@@ -9,6 +14,7 @@ const App = () => {
       <div className="row">
         <LinksList />
       </div>
+      <ToastContainer />
     </div>
   );
 };

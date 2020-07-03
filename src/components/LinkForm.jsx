@@ -11,8 +11,8 @@ const LinkForm = ({ addOrEdit }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(values);
     addOrEdit(values);
+    setValues({ ...initialState });
   };
 
   const handleInputChange = (event) => {
@@ -36,6 +36,7 @@ const LinkForm = ({ addOrEdit }) => {
             placeholder="https://someurl.com"
             name="url"
             onChange={handleInputChange}
+            value={values.url}
           />
         </div>
         <div className="form-group input-group">
@@ -48,6 +49,7 @@ const LinkForm = ({ addOrEdit }) => {
             placeholder="Website Name"
             name="name"
             onChange={handleInputChange}
+            value={values.name}
           />
         </div>
 
@@ -56,8 +58,9 @@ const LinkForm = ({ addOrEdit }) => {
             className="form-control"
             placeholder="Write a description"
             name="description"
-            rows="10"
+            rows="3"
             onChange={handleInputChange}
+            value={values.description}
           ></textarea>
         </div>
 
