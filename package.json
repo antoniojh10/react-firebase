@@ -1,7 +1,7 @@
 {
-  "name": "react-base",
+  "name": "react-firebase",
   "version": "1.0.0",
-  "description": "A template for create React projects, ESlint and Webpack included.",
+  "description": "A CRUD with React and Firebase",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antoniojh10/react-base.git"
+    "url": "git+https://github.com/antoniojh10/react-firebase.git"
   },
   "author": "Antonio Hernández",
   "license": "MIT",
