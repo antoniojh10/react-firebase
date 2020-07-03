@@ -18,6 +18,9 @@
     "sinon": true
   },
   "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
   "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
     "react/jsx-filename-extension": 0,

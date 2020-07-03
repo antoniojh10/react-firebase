@@ -1,5 +1,16 @@
 import React from 'react';
 
-const App = () => <h1>Hello World from React</h1>;
+// Components
+import LinksList from './LinksList';
+
+const App = () => {
+  return (
+    <div className="container p-4">
+      <div className="row">
+        <LinksList />
+      </div>
+    </div>
+  );
+};
 
 export default App;

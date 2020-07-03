@@ -1,5 +1,8 @@
 # Node template
 
+# Firebase credentials
+firebase.js
+
 # Logs
 logs
 *.log
