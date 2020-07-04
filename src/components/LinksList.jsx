@@ -69,7 +69,7 @@ const LinksList = () => {
       <div className="col-12 col-lg-5">
         <LinkForm {...{ addOrEditLink, currentLink, links }} />
       </div>
-      <div className="col d-flex flex-column justify-content-center">
+      <div className="col d-flex flex-column">
         <h1 className="text-center">Links</h1>
         {links.length === 0 ? (
           <p>No hay links</p>
