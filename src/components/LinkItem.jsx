@@ -1,14 +1,24 @@
 import React from 'react';
 
-const LinkItem = ({ id, url, name, description, deleteLink }) => {
+const LinkItem = ({
+  url,
+  name,
+  description,
+  deleteLink,
+  setCurrentLink,
+}) => {
   return (
-    <div className="card border-primary mb-3">
+    <div className="card mb-3 link-item">
       <div className="card-header">
         {url}{' '}
         <button type="button" className="close" onClick={deleteLink}>
           <i className="material-icons">close</i>
         </button>
-        <button type="button" className="close">
+        <button
+          type="button"
+          className="close"
+          onClick={setCurrentLink}
+        >
           <i className="material-icons">create</i>
         </button>
       </div>

@@ -1,0 +1,6 @@
+.link-item {
+  cursor: pointer;
+  &:hover {
+    border-color: $primary-color;
+  }
+}

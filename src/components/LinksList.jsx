@@ -12,6 +12,7 @@ import { db } from '../firebase';
 
 const LinksList = () => {
   const [links, setLinks] = useState([]);
+  const [currentLink, setCurrentLink] = useState('');
 
   useEffect(() => {
     getLinks();
@@ -28,12 +29,24 @@ const LinksList = () => {
     });
   };
 
-  const addTask = async (linkObject) => {
-    await db.collection('links').doc().set(linkObject);
-    toast(`Link to ${linkObject.name} added!`, {
-      type: 'success',
-      hideProgressBar: true,
-    });
+  const addOrEditLink = async (linkObject) => {
+    if (currentLink === '') {
+      await db.collection('links').doc().set(linkObject);
+      toast(`Link to ${linkObject.name} added!`, {
+        type: 'success',
+        hideProgressBar: true,
+      });
+    } else {
+      await db
+        .collection('links')
+        .doc(currentLink)
+        .update(linkObject);
+      toast(`Link to ${linkObject.name} updated!`, {
+        type: 'info',
+        hideProgressBar: true,
+      });
+    }
+    setCurrentLink('');
   };
 
   const handleDelete = (id) => {
@@ -47,13 +60,17 @@ const LinksList = () => {
     }
   };
 
+  const handleCurrentLink = (id) => {
+    setCurrentLink(id);
+  };
+
   return (
     <React.Fragment>
-      <div className="col-7 col-lg-5">
-        <LinkForm on addOrEdit={addTask} />
+      <div className="col-12 col-lg-5">
+        <LinkForm {...{ addOrEditLink, currentLink, links }} />
       </div>
-      <div className="col">
-        <h1>Links</h1>
+      <div className="col d-flex flex-column justify-content-center">
+        <h1 className="text-center">Links</h1>
         {links.length === 0 ? (
           <p>No hay links</p>
         ) : (
@@ -64,6 +81,7 @@ const LinksList = () => {
               url={url}
               description={description}
               deleteLink={handleDelete.bind(this, id)}
+              setCurrentLink={handleCurrentLink.bind(this, id)}
             />
           ))
         )}

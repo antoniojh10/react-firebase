@@ -8,6 +8,7 @@ import './firebase';
 
 // Styles
 import 'bootswatch/dist/litera/bootstrap.min.css';
+import './assets/styles/index.scss';
 
 // Components
 import App from './components/App';

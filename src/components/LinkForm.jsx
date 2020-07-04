@@ -1,29 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const LinkForm = ({ addOrEdit }) => {
+// Firestore
+import { db } from '../firebase';
+
+const LinkForm = ({ addOrEditLink, currentLink }) => {
   const initialState = {
     url: '',
     name: '',
     description: '',
   };
 
-  const [values, setValues] = useState(initialState);
+  const [values, setValues] = useState({ ...initialState });
+
+  useEffect(() => {
+    console.log(values);
+    if (currentLink === '') {
+      setValues({ ...initialState });
+    } else {
+      getLinkById(currentLink);
+    }
+  }, [currentLink]);
+
+  const getLinkById = async (id) => {
+    const doc = await db.collection('links').doc(id).get();
+    setValues({ ...doc.data() });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addOrEdit(values);
+    addOrEditLink(values);
     setValues({ ...initialState });
   };
 
   const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setValues({
       ...values,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
   };
 
+  const validationSubmit = () => {
+    if (values.url !== '' && values.name !== '') {
+      if (validateURL(values.url)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const validateURL = (str) => {
+    return /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/gim.test(
+      str,
+    );
+  };
+
   return (
-    <form className="card" onSubmit={handleSubmit}>
+    <form className="card mb-5" onSubmit={handleSubmit}>
       <h3 className="card-header">Add Your Link</h3>
       <div className="card-body">
         <div className="form-group input-group">
@@ -63,8 +99,15 @@ const LinkForm = ({ addOrEdit }) => {
             value={values.description}
           ></textarea>
         </div>
-
-        <button className="btn btn-block btn-primary">Save</button>
+        {validationSubmit() ? (
+          <button className="btn btn-block btn-primary">
+            {values.id === '' ? 'Save' : 'Update'}
+          </button>
+        ) : (
+          <button className="btn btn-block btn-primary" disabled>
+            {values.id === '' ? 'Save' : 'Update'}
+          </button>
+        )}
       </div>
     </form>
   );
